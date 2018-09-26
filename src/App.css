@@ -1,0 +1,110 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#main-links {
+  background-color: #222;
+  position: absolute; 
+  height: 500px;
+  width: 100%;
+}
+
+
+#main-links > a{
+  display:inline-block;
+  text-align: center;
+  margin: 10px;
+  color: #b61c29d7;
+  font-weight: bold;
+  font-size: 110%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif 
+  /* text-shadow: -1px -1px 0 #ecf0f1, 1px -1px 0 #ecf0f1, -1px 1px 0 #ecf0f1, 1px 1px 0 #ecf0f1; */
+}
+
+#main-links > span{
+  position: absolute; 
+  right:1%;
+  display:inline-block;
+  text-align: center;
+  margin: 10px;
+  color: rgb(12, 184, 166);
+  font-size: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+
+
+/* #main-links > h1{
+  position: absolute; 
+  left:370%;
+  top: -5px;
+  display:inline-block;
+  text-align: center;
+  margin: 10px;
+  font-size: 40px;
+  color: rgb(12, 184, 166);
+} */
+
+*{
+  text-decoration: none;
+  font-family: 'Cinzel Decorative'
+  
+}
+
+a{
+  cursor: pointer;
+  color: black;
+}
+
+#home-background{
+  background-color: #222;
+  height: 1000px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+
+.main-directory-text{
+  display: inline-block;
+}
+
+.directory{
+  text-align: center;
+}
+
+
+
+
+

@@ -1,0 +1,62 @@
+#search {
+    position: absolute; 
+    left: 1%;
+    background-color: black;
+    color: bisque;
+    padding-left: 5px;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 20px
+}
+
+#budget {
+    color: bisque;
+    position: absolute;
+    right: 1%;
+    font-size: 20px
+}
+
+#rented {
+    display: block;
+    color: bisque;
+    position: absolute;
+    left: 1%;
+    top: 90%;
+    font-size: 15px;
+    margin:10px;
+
+}
+
+#rented  > h1 {
+    position: absolute;
+   left: 0%;
+    top: -30%; 
+    margin-top:20px;
+    color: bisque;
+    
+}
+
+#catalog {
+    display: block;
+    color: bisque;
+    position: absolute;
+    left: 1%;
+    top: 25%;
+    font-size: 15px;
+    margin:10px;
+}
+
+
+#catalog > h1 {
+    position: absolute;
+    left: 0%;
+    top: -20%;
+    color: bisque;
+    
+}
+
+.catalog-main{
+    background-color: #222;
+    height: 700px;
+    width: 100%;
+  }
