@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
+import { Link} from 'react-router-dom'
 import '../styles/Landing.css';
-import {Link} from 'react-router-dom'
-
 
 class Landing extends Component {
+    click = (user) => {
+        this.props.handleClick(user);
+    }
     render() {
-        let users = [];
+        let users = this.props.users;
         return (
             <div className="main">
-                <h1>Who's watching</h1>
-                <br/>
-                <Link to="/user/Tina"><div id="user-1" className="user-box">Tina</div></Link>
-                <Link to="/user/Loui"><div id="user-2" className="user-box">Loui</div></Link>
-                <Link to="/user/Nadia"><div id="user-3" className="user-box">Nadia</div></Link>
-                <Link to="/user/Puff"><div id="user-4" className="user-box">Puff</div></Link>
+            <h1>Who's watching</h1>
+            <div>
+            {Object.entries(users).map((c,i) => {
+                return (
+                    <div className="user-container">
+                    <span id="user-headline">{c[0]}</span>
+                    <Link to="/catalog">
+                    <div name={c[0]} id={`user-${i+1}`} 
+                    className="user-box" 
+                    onClick={(i)=>this.click(c[0])}></div>
+                    </Link>
+                    </div>
+                )
+            })}
+            </div>
             </div>
         );
- 
     }
-
+    
 }
 
 export default Landing;

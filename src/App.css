@@ -46,7 +46,7 @@
   /* text-shadow: -1px -1px 0 #ecf0f1, 1px -1px 0 #ecf0f1, -1px 1px 0 #ecf0f1, 1px 1px 0 #ecf0f1; */
 }
 
-#main-links > span{
+#reflix{
   position: absolute; 
   right:1%;
   display:inline-block;
