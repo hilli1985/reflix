@@ -6,9 +6,13 @@
     left: 0px;
     bottom: 0px;
     text-align: center;
-    border-radius: 5%;
+    border-radius: 5%;  
 }
 
+.disable {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
 
 .movie-card {
     display: inline-block;
