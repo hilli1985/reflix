@@ -6,23 +6,27 @@ class Movie extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            isHidden:false
+            active:true
         }
     }
     
     clickHandle = ()=>{
         if (this.props.sign==='+'){
             this.props.rentFunc(this.props.id);
+            this.state.active = false;
         }
         else { 
             this.props.rentFunc(this.props.id);
+            this.state.active = true;
         }
     }
     
     render(){
         if (this.props.sign==='+'){
             return (
-                <div className="movie-card" key={this.props.id}>
+                <div 
+                className={!this.props.isRented ? "movie-card": "movie-card disable"} 
+                key={this.props.id}>
                 <span className="i-circle" onClick={this.clickHandle}>{this.props.sign}</span>
                 <Link to={`/movieDetail/${this.props.id}`}>
                 <img className="movie-img" src={this.props.img} alt="img" />
@@ -32,7 +36,9 @@ class Movie extends Component {
         }
         else {
             return (
-                <div className="movie-card" key={this.props.id}>
+                <div 
+                className={this.state.active ? "movie-card": "movie-card disable"}
+                key={this.props.id}>
                 <span className="i-circle" onClick={this.clickHandle}>{this.props.sign}</span>
                 <img className="movie-img" src={this.props.img} alt="img" />    
                 </div>
