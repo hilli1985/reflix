@@ -1,15 +1,21 @@
 .user-box {
-    width:120px;
-    height:50px;
+    width:200px;
+    height:200px;
     padding: 25px;
     margin: 25px;
     display: inline-block;
     border-radius: 5px;
     font-size: 25px;
     text-align: center;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
-    
-    
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    background-position: center;
+}
+
+.user-container {
+    width:300px;
+    height:350px;
+    display: inline-block;
+    margin:10px;
 }
 
 .main {
@@ -19,26 +25,32 @@
     text-align: center;
 
 }
+#user-headline {
+    font-size: 30px;
+    padding: 5px;
+    color: bisque;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+    height: 100%;
+    width: 100%;
+
+}
 
 #user-1{
-    background-color: #548eea;
-    
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/f9fa8a33850498.56ba69ac2cc3a.png');
 }
-
 #user-2{
-    background-color: #bc4a38;
-
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/64623a33850498.56ba69ac2a6f7.png');
 }
-
 #user-3{
-    background-color: #589c4b;
-
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/c7906d33850498.56ba69ac353e1.png');
 }
-
 #user-4{
-    background-color: rgb(255, 255, 26)
-
+    background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/disp/84c20033850498.56ba69ac290ea.png');
 }
+
 h1 {
     color:white;
+    padding: 10px;
+    padding-top:15px;
 }
