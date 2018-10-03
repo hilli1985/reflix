@@ -21,7 +21,7 @@
     color: bisque;
     position: absolute;
     left: 1%;
-    top: 80%;
+    top: 110%;
     font-size: 15px;
     margin:10px;
 
@@ -30,7 +30,7 @@
 #rented  > h1 {
     position: absolute;
    left: 0%;
-    top: -30%; 
+    top: -40%; 
     margin-top:20px;
     color: bisque;
     
@@ -41,7 +41,7 @@
     color: bisque;
     position: absolute;
     left: 1%;
-    top: 20%;
+    top: 30%;
     font-size: 15px;
     margin:10px;
 }
@@ -50,7 +50,7 @@
 #catalog > h1 {
     position: absolute;
     left: 0%;
-    top: -20%;
+    top: -25%;
     color: bisque;
     
 }

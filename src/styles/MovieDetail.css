@@ -44,3 +44,25 @@ h2 {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: bisque;
 }
+
+
+.pending {
+    margin: 400px;
+    margin-top: 50px;
+    height: 500px;
+    width: 500px;
+    background-repeat: no-repeat;
+    background-image: url("https://media1.tenor.com/images/3a0c9909b542717ce9f651d07c4d4592/tenor.gif?itemid=8985245");
+    /* background-image: url("https://media1.tenor.com/images/db85ba00c6073b451a8f05156a66524e/tenor.gif?itemid=9856796"); */
+    /* background-image: url("https://media1.tenor.com/images/bbdae04b8b09f23627c2cc605fc497b5/tenor.gif?itemid=11696943"); */
+}
+
+.back {
+    height: 40px;
+    width: 40px; 
+    padding: 5px;
+    margin:10px;
+    margin-left:100px;
+    background-size: contain;
+    background-image: url('https://lh3.googleusercontent.com/jOZTa-tLJcnGJCtgw_hwYjZDtmSe_a47GQTiyA02q-QIIc_rimNhLCUYYic3mfCdpaft=s180');
+}

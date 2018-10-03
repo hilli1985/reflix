@@ -13,11 +13,11 @@ class Movie extends Component {
     clickHandle = ()=>{
         if (this.props.sign==='+'){
             this.props.rentFunc(this.props.id);
-            this.state.active = false;
+            this.setState({active : false});
         }
         else { 
             this.props.rentFunc(this.props.id);
-            this.state.active = true;
+            this.setState({active : true});
         }
     }
     

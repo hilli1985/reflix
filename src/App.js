@@ -4,6 +4,7 @@ import './App.css';
 import Catalog from './components/Catalog';
 import Landing from './components/Landing';
 import MovieDetail from './components/MovieDetail';
+import axios from 'axios';
 
 
 class App extends Component {
@@ -12,20 +13,17 @@ class App extends Component {
     this.state = { 
       budget:0,
       catalog: [
-        { id: 0, isRented:false, title: "Tarzan", year: 1999, img: "https://vignette.wikia.nocookie.net/disney-fan-fiction/images/4/42/Tarzan_2004_cover.jpg/revision/latest?cb=20140331030811", descrShort: "Tarzan was born into wealth but raised into incredible misfortune. Shiprweck, parents mauled by a jaguar. Luckily, a troop of gorillas took him in, but the Big Daddy gorilla never took a liking to him. That is, until the end when it's too late. Why is it too late? Watch and find out." },
-        { id: 1, isRented:false, title: "The Lion King", img: "https://img00.deviantart.net/b782/i/2006/207/e/7/the_lion_king_front_cd_cover_by_peachpocket285.jpg", year: 1994, descrShort: "A young lion prince named Simba is born into wealth but raised into incredible misfortune. Trickster uncle, dying father, usurpation. Luckily, an unlikely meerkat-warthog pair take him in and teach him The Ways of the Bum Life. Be prepared for ghostly hallucinations, wild baboons, creepy crawlies." },
-        { id: 2, isRented:false, title: "Beauty and the Beast", year: 1991, img: "https://images-na.ssl-images-amazon.com/images/I/81etFyb9N-L._SL1500_.jpg", descrShort: "A kickass woman named Belle who does not succumb to social norms gets crap from a bunch of village idiots, chief amongst them a total tool named Gaston. Belle shows everyone how great she is when she turns a beast (not Gaston) into a man. Love ensues, but then the villagers fall trap to severe group-think mentality led by the main tool himself." },
-        { id: 3, isRented:false, title: "The Sword in the Stone", year: 1963, img: "https://www.disneyinfo.nl/images/laserdiscs/229-1-AS-front.jpg", descrShort: "Arthur is a young boy who just wants to be a knight's squire. Alas, he is dubbed 'Wart' early on, and it was all downhill from there for a while. On a hunting trip he falls in on Merlin, literally. Merlin is a possibly-mentally-unstable-and-ethically-dubious Wizard that turns Arthur into a literate, at-one-point harassed squirrel. Watch to find out what the heck that means." },
-        { id: 4, isRented:false, title: "Beauty and the Beast", year: 2016, img: "https://images-na.ssl-images-amazon.com/images/I/51ArFYSFGJL.jpg", descrShort: "Basically the same as the original, except now Hermi-- Emma Wattson plays Belle, fittingly so some would say, given how actively progressive she is regarding women's rights. Rumor has it that in the bonus scenes she whips out a wand and turns Gaston into a toad, but in order to watch those scenes you need to recite a certain incantation." }
-      ],
-      users: { 
-        Tina:{rentedMovies:[0,1,2],budget:4},
-        Loui:{rentedMovies:[3,4],budget:4},
-        Nadia:{rentedMovies:[2],budget:10},
-        Puff:{rentedMovies:[0,1,2,3],budget:10}
+      { id: 0, isRented:false, title: "Tarzan", year: 1999, img: "https://vignette.wikia.nocookie.net/disney-fan-fiction/images/4/42/Tarzan_2004_cover.jpg/revision/latest?cb=20140331030811", descrShort: "Tarzan was born into wealth but raised into incredible misfortune. Shiprweck, parents mauled by a jaguar. Luckily, a troop of gorillas took him in, but the Big Daddy gorilla never took a liking to him. That is, until the end when it's too late. Why is it too late? Watch and find out." }],
+      users:   { 
+        Dummy:{rentedMovies:[0],budget:4},
+        Tina:{rentedMovies:[348350,400155,447200],budget:20},
+        Loui:{rentedMovies:[507569,299536],budget:4},
+        Nadia:{rentedMovies:[284054],budget:10},
+        Puff:{rentedMovies:[284054,507569,348350],budget:10}
       },
-      currentUser:'Tina',
-      query:''
+      currentUser:'Dummy',
+      query:'',
+      page:1
     };
   }
 
@@ -34,18 +32,19 @@ class App extends Component {
   }
 
   componentDidMount = async ()=>{
+    let results = await this.getMoviesFromAPI();
     let state = await JSON.parse(localStorage.getItem('state'));
     if (state) {
       this.setState({
-        budget : state.budget,
-        catalog : state.catalog,
+        budget : (state.budget||20),
+        catalog :  this.createCatalogFromResults(results),
         query:'',
-        currentUser:state.currentUser,
-        users : state.users
+        currentUser:(state.currentUser||'Tina'),
+        users : (state.users||this.users)
       })
     }
   }
-  
+
   componentDidUpdate = async ()=> {
     await localStorage.setItem('state',JSON.stringify(this.state));
   }
@@ -53,12 +52,36 @@ class App extends Component {
   componentWillUnmount = async ()=> {
     await localStorage.setItem('state',JSON.stringify(this.state));
   }
+
+  createCatalogFromResults = (results)=>{
+    return results.map(r=>({
+      id:r.id,
+      isRented:false,
+      title:r.title,
+      year:r.release_date,
+      img:`https://image.tmdb.org/t/p/w500/${r.poster_path}`,
+      descrShort:r.overview
+    }))
+  }
+
+  getMoviesFromAPI = async ()=>{
+    var data;
+    let api_key = '877ee9cfc049b2212145ecb01fb2a031';
+    let language = 'en-US';
+    let page = this.state.page;
+    let url = `https://api.themoviedb.org/3/movie/popular?api_key=${api_key}&language=${language}&page=${page}`;
+    await axios.get(url)
+      .then(response => { 
+        data = response.data.results;
+      });
+      return data;
+  }
   
   rentMovie = (id)=>{
     let budget = this.state.users[this.state.currentUser].budget;
     let userRentedMovies = [...this.state.users[this.state.currentUser].rentedMovies];
     if (budget-3<0){
-      alert ('Your budget is lower than expected');
+      alert ('Your budget is lower than expected,\n you have to un-rent as first step.');
       return;
     }
     if(!userRentedMovies.filter(r=>r===id).length){
@@ -103,19 +126,32 @@ class App extends Component {
   }
 
   filterCatalogPerUser (user){
-    let rentedMovies = this.state.users[user].rentedMovies; 
+    if (user==='Dummy'){
+      return;
+    }
+    let rentedMovies = [...this.state.users[user].rentedMovies]; 
     let newCatalog = [...this.state.catalog];
+    console.log(newCatalog);
     newCatalog.forEach((movie, index) => {
       newCatalog[index] = {...newCatalog[index]}
-    })
+    });
+    console.log(rentedMovies);
     rentedMovies.forEach(rentedMovie => {
-      newCatalog.filter(catalogMovie => catalogMovie.id === rentedMovie)[0].isRented = true;
+      newCatalog.filter(catalogMovie => catalogMovie.id === rentedMovie)[0].isRented = true
     })
     return newCatalog;
   }
+  changePage = async (p)=>{
+    //alert('page');
+    let page = this.state.page;
+    let results = await this.getMoviesFromAPI();
+      this.setState({
+        catalog :  this.createCatalogFromResults(results),
+        page:page+p
+      })
+  }
   render() {
     const filteredPerUserMovies = this.filterCatalogPerUser(this.state.currentUser);
-    //console.log(filteredPerUserMovies);
     return (
       <Router>
       <div className="body">
@@ -130,6 +166,7 @@ class App extends Component {
       />
       <Route path="/catalog" exact render={() => 
       <Catalog 
+        changePage = {this.changePage}
         rentedMovies={filteredPerUserMovies}
         budget = {this.state.users[this.state.currentUser].budget}
         state={this.state} 
@@ -145,5 +182,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
