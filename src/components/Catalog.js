@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import '../styles/Catalog.css';
 import Movie from './Movie';
+import Paging from './Paging';
 
 class Catalog extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            firstIndex : 0,
+            lastIndex : 7
         }
     }
     
+    handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({activePage: pageNumber});
+    }
     
     filterMovies = (catalog, query) => {
         if (!query) {
@@ -18,16 +25,16 @@ class Catalog extends Component {
         return catalog.filter((movie) => movie.title.toLowerCase().includes(query));
     }
     
-    getMovies = ()=> {
-        let catalog = this.props.rentedMovies
+    getMovies =  () => {
+        let catalog = this.props.rentedMovies;
         let query = this.props.state.query;
         let rentFunc = this.props.rent;
-        
-        let filteredCatalog = this.filterMovies(catalog, query);
-        
+        let first = this.state.firstIndex;
+        let last = this.state.lastIndex;
+        let filteredCatalogShort = this.filterMovies(catalog.slice(first,last), query); 
         return (
             <div>
-            {filteredCatalog.map(c => {
+            {filteredCatalogShort.map(c => {
                 return (
                     <Movie key={c.id} year={c.year} 
                     isRented={c.isRented}
@@ -35,19 +42,22 @@ class Catalog extends Component {
                     title={c.title} 
                     img={c.img} 
                     sign='+'
-                    rentFunc={rentFunc}/>
+                    rentFunc={rentFunc}/>          
                 )
             })}
+              <Paging changePage={this.props.changePage} start={this.state.firstIndex} end={this.state.lastIndex} 
+              updatePositions={this.updatePositions} total={catalog.length}/>
             </div>)
-        }
+    }
 
     getRented =()=> {
         let query = this.props.state.query;
         let rentFunc = this.props.unRent;
-        let rented = this.props.rentedMovies
-        
+        let rented = this.props.rentedMovies;
         let filteredCatalog = this.filterMovies(rented, query);
-        
+        if(!filteredCatalog){
+            return;
+        }
         return (
             <div>
             {filteredCatalog.map(c => {
@@ -63,10 +73,21 @@ class Catalog extends Component {
             </div>)
         } 
     
-    isHide =(rented)=>{
+    isHide = (rented) =>{
+        if (!rented) {
+            return;
+        }
         return ((rented.filter(r => r.isRented).length)===0);
     }
     
+    updatePositions = (start,end) => {
+        this.setState({
+            firstIndex : start,
+            lastIndex : end
+            } 
+        )
+        //alert (`start:${start} end:${end}`);
+    }        
     render() {
         let rented = this.props.rentedMovies;
         let hideRented = this.isHide(rented);

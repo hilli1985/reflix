@@ -12,9 +12,9 @@ class Landing extends Component {
             <div className="main">
             <h1>Who's watching</h1>
             <div>
-            {Object.entries(users).map((c,i) => {
+            {Object.entries(users).splice(1,Object.entries(users).length).map((c,i) => {
                 return (
-                    <div className="user-container">
+                    <div key={c[0]} className="user-container">
                     <span id="user-headline">{c[0]}</span>
                     <Link to="/catalog">
                     <div name={c[0]} id={`user-${i+1}`} 
